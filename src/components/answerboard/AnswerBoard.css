@@ -1,0 +1,12 @@
+.answerboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.answerletter-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-style: ridge;
+}

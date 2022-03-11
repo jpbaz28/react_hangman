@@ -1,0 +1,13 @@
+.button {
+  color: lightcoral;
+  background-color: bisque;
+  border-radius: 8px;
+  margin-left: 1rem;
+  padding: 10px;
+  min-width: min-content;
+}
+
+.button:hover {
+  color: lightpink;
+  background-color: blanchedalmond;
+}
