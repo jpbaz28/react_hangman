@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AlphaButtons from '../alphabuttons/AlphaButtons';
 import AnswerBoard from '../answerboard/AnswerBoard';
 import DrawScreen from '../drawscreen/DrawScreen';
@@ -12,14 +12,29 @@ export default function GamePage() {
     'U','V','W','X','Y','Z',
   ]);
   const [guessLetter, setGuessLetter] = useState<string>('');
-  const [answerWord] = useState<string>('gangster');
+  const [answerWord, setAnswerWord] = useState<string>('gang');
+  const [mask, setMask] = useState<string>('');
+  useEffect(() => {
+    setMask(answerWord.replace(/([A-Za-z])/gi, '*'));
+  }, [answerWord]);
   return (
     <div className="gamepage-wrapper">
       <h1>Game Page</h1>
-      <AnswerBoard answer={answerWord} guess={guessLetter} />
+      <AnswerBoard
+        answer={answerWord}
+        setAnswer={setAnswerWord}
+        guess={guessLetter}
+        mask={mask}
+      />
       <div>
         {alphabet.map((alpha) => (
-          <AlphaButtons alpha={alpha} />
+          <AlphaButtons
+            guess={alpha}
+            mask={mask}
+            answer={answerWord}
+            setGuess={setGuessLetter}
+            setMask={setMask}
+          />
         ))}
       </div>
       <DrawScreen />
