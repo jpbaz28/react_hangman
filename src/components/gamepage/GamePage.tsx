@@ -1,43 +1,102 @@
+import axios, { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AlphaButtons from '../alphabuttons/AlphaButtons';
 import AnswerBoard from '../answerboard/AnswerBoard';
 import DrawScreen from '../drawscreen/DrawScreen';
+import MissCounter from '../misscounter/MissCounter';
 import './GamePage.css';
 
 export default function GamePage() {
   // prettier-ignore
-  const [alphabet] = useState<string[]>([
+  const [letterList, setLetterList] = useState<string[]>([
     'A','B','C','D','E','F','G','H','I','J',
     'K','L','M','N','O','P','Q','R','S','T',
     'U','V','W','X','Y','Z',
   ]);
-  const [guessLetter, setGuessLetter] = useState<string>('');
-  const [answerWord, setAnswerWord] = useState<string>('gang');
+  const [answer, setAnswer] = useState<string>('gangster');
+  const [definition, setDefinition] = useState<string>('gangster');
   const [mask, setMask] = useState<string>('');
+  const [numMisses, setNumMisses] = useState<number>(0);
+  const navigate = useNavigate();
   useEffect(() => {
-    setMask(answerWord.replace(/([A-Za-z])/gi, '*'));
-  }, [answerWord]);
-  return (
-    <div className="gamepage-wrapper">
-      <h1>Game Page</h1>
-      <AnswerBoard
-        answer={answerWord}
-        setAnswer={setAnswerWord}
-        guess={guessLetter}
-        mask={mask}
-      />
-      <div>
-        {alphabet.map((alpha) => (
-          <AlphaButtons
-            guess={alpha}
-            mask={mask}
-            answer={answerWord}
-            setGuess={setGuessLetter}
-            setMask={setMask}
-          />
-        ))}
+    getRandomWord();
+  }, []);
+
+  useEffect(() => {
+    setMask(answer.replace(/([A-Za-z])/gi, '*'));
+    setNumMisses(0);
+    // prettier-ignore
+    setLetterList([
+    'A','B','C','D','E','F','G','H','I','J',
+    'K','L','M','N','O','P','Q','R','S','T',
+    'U','V','W','X','Y','Z',
+  ])
+  }, [answer]);
+
+  async function getRandomWord() {
+    try {
+      const response: AxiosResponse = await axios.get(
+        `https://random-words-api.vercel.app/word`
+      );
+      const wordObj = await response.data;
+      setAnswer(wordObj[0].word);
+      setDefinition(wordObj[0].definition);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  if (numMisses < 9 && mask.includes('*')) {
+    return (
+      <div className="gamepage-wrapper">
+        <h1>Guess the Word!</h1>
+        <AnswerBoard mask={mask} />
+        <div>
+          {letterList.map((letter) => (
+            <AlphaButtons
+              letter={letter}
+              letterList={letterList}
+              mask={mask}
+              answer={answer}
+              numMisses={numMisses}
+              setMask={setMask}
+              setNumMisses={setNumMisses}
+              setLetterList={setLetterList}
+              key={letter}
+            />
+          ))}
+        </div>
+        <div>
+          <MissCounter numMisses={numMisses} />
+          <DrawScreen numMisses={numMisses} />
+        </div>
       </div>
-      <DrawScreen />
-    </div>
-  );
+    );
+  } else if (numMisses < 9) {
+    return (
+      <div className="gamepage-wrapper">
+        <h1>You Won in {numMisses} moves!</h1>
+        <h2>The word was: {answer}</h2>
+        <h2>Definition: {definition}</h2>
+        <DrawScreen numMisses={numMisses} />
+        <button onClick={() => navigate('/')}>Start New Game</button>
+      </div>
+    );
+  } else if (numMisses >= 9 && mask.includes('*')) {
+    return (
+      <div className="gamepage-wrapper">
+        <h1>You Monster!</h1>
+        <h2>The word was: {answer}</h2>
+        <h2>Definition: {definition}</h2>
+        <DrawScreen numMisses={numMisses} />
+        <button onClick={() => navigate('/')}>Start New Game</button>
+      </div>
+    );
+  } else {
+    return (
+      <div className="gamepage-wrapper">
+        <h1>Hey</h1>
+      </div>
+    );
+  }
 }

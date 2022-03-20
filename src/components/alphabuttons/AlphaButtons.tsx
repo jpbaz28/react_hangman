@@ -2,27 +2,36 @@ import { useState } from 'react';
 import './AlphaButtons.css';
 
 export default function AlphaButtons(props: {
-  guess: string;
+  letter: string;
+  letterList: string[];
   mask: string;
   answer: string;
-  setGuess: Function;
+  setLetterList: Function;
+  numMisses: number;
   setMask: Function;
+  setNumMisses: Function;
 }) {
-  const [guessLetter, setGuessLetter] = useState<string>('');
+  const [guessLetter] = useState<string>(props.letter);
   function searchLetter() {
-    setGuessLetter(props.guess);
-    if (props.answer.includes(guessLetter)) {
-      let str = '';
-      for (const char of props.answer) {
-        str += char;
+    let str = '';
+    props.letterList.splice(props.letterList.indexOf(props.letter), 1);
+    props.setLetterList(props.letterList);
+    if (props.answer.toUpperCase().includes(guessLetter)) {
+      for (let i = 0; i < props.answer.length; i++) {
+        if (props.answer[i].toUpperCase() === guessLetter) {
+          str += props.answer[i];
+        } else {
+          str += props.mask[i];
+        }
       }
       props.setMask(str);
-      // }
+    } else {
+      props.setNumMisses(props.numMisses + 1);
     }
   }
   return (
     <button className="button" onClick={searchLetter}>
-      {props.guess}
+      {props.letter}
     </button>
   );
 }
