@@ -3,14 +3,17 @@
   justify-content: center;
   margin: 0px;
   padding: 0px;
+  flex: 1 1;
 }
 
 .miss-counter {
   display: flex;
   justify-content: center;
-  border: 1rem;
+  border: 0.5rem;
   border-style: outset;
-  border-color: rgb(27, 22, 56);
+  border-color: #4b4e41;
+  background-color: rgb(224, 214, 200);
   padding: 1rem;
   margin: 0px;
+  flex: auto;
 }

@@ -1,5 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
 .gamepage-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: auto;
+}
+
+.btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  max-width: 40rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.title-wrapper {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: larger;
+  display: flex;
+  justify-content: center;
+  flex: auto;
+}
+.misscounter-wrapper {
+  display: flex;
+  justify-content: center;
+  flex: auto;
+}
+
+.drawscreen-wrapper {
+  display: flex;
+  justify-content: center;
+  flex: auto;
+}
+
+.board-wrapper {
+  display: flex;
+  justify-content: center;
+  flex: auto;
+}
+.answerboard-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

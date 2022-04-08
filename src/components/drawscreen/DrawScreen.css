@@ -4,6 +4,8 @@
   align-items: center;
   border: 2px;
   border-style: solid;
-  border-color: black;
+  border-color: #4b4e41;
   margin: 0px;
+  /* flex: auto; */
+  background-color: rgb(224, 214, 200);
 }

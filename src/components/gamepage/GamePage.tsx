@@ -49,9 +49,13 @@ export default function GamePage() {
   if (numMisses < 9 && mask.includes('*')) {
     return (
       <div className="gamepage-wrapper">
-        <h1>Guess the Word!</h1>
-        <AnswerBoard mask={mask} />
-        <div>
+        <div className="title-wrapper">
+          <h1>Guess the Word!</h1>
+        </div>
+        <div className="answerboard-wrapper">
+          <AnswerBoard mask={mask} />
+        </div>
+        <div className="btn-wrapper">
           {letterList.map((letter) => (
             <AlphaButtons
               letter={letter}
@@ -66,20 +70,22 @@ export default function GamePage() {
             />
           ))}
         </div>
-        <div>
-          <MissCounter numMisses={numMisses} />
-          <DrawScreen numMisses={numMisses} />
+        <div className="board-wrapper">
+          <div className="drawscreen-wrapper">
+            <DrawScreen numMisses={numMisses} />
+            <MissCounter numMisses={numMisses} />
+          </div>
         </div>
       </div>
     );
   } else if (numMisses < 9) {
     return (
       <div className="gamepage-wrapper">
+        <button onClick={() => navigate('/')}>Start New Game</button>
         <h1>You Won in {numMisses} moves!</h1>
         <h2>The word was: {answer}</h2>
         <h2>Definition: {definition}</h2>
         <DrawScreen numMisses={numMisses} />
-        <button onClick={() => navigate('/')}>Start New Game</button>
       </div>
     );
   } else if (numMisses >= 9 && mask.includes('*')) {
