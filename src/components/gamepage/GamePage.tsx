@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import AlphaButtons from '../alphabuttons/AlphaButtons';
 import AnswerBoard from '../answerboard/AnswerBoard';
 import DrawScreen from '../drawscreen/DrawScreen';
-import MissCounter from '../misscounter/MissCounter';
 import './GamePage.css';
+import '@fontsource/roboto/400.css';
+import { Button, Container, Grid, Typography } from '@mui/material';
 
 export default function GamePage() {
   // prettier-ignore
@@ -48,40 +49,45 @@ export default function GamePage() {
   }
   if (numMisses < 9 && mask.includes('*')) {
     return (
-      <div className="gamepage-wrapper">
-        <div className="title-wrapper">
-          <h1>Guess the Word!</h1>
-        </div>
-        <div className="answerboard-wrapper">
-          <AnswerBoard mask={mask} />
-        </div>
-        <div className="btn-wrapper">
-          {letterList.map((letter) => (
-            <AlphaButtons
-              letter={letter}
-              letterList={letterList}
-              mask={mask}
-              answer={answer}
-              numMisses={numMisses}
-              setMask={setMask}
-              setNumMisses={setNumMisses}
-              setLetterList={setLetterList}
-              key={letter}
-            />
-          ))}
-        </div>
-        <div className="board-wrapper">
-          <div className="drawscreen-wrapper">
-            <DrawScreen numMisses={numMisses} />
-            <MissCounter numMisses={numMisses} />
+      <Container maxWidth="md">
+        <div>
+          <div style={{ textAlign: 'center' }}>
+            <Typography variant="h2" component="h1">
+              Guess the Word!
+            </Typography>
+          </div>
+          <div style={{ textAlign: 'center' }}>
+            <AnswerBoard mask={mask} />
+          </div>
+          <div>
+            {letterList.map((letter) => (
+              <AlphaButtons
+                letter={letter}
+                letterList={letterList}
+                mask={mask}
+                answer={answer}
+                numMisses={numMisses}
+                setMask={setMask}
+                setNumMisses={setNumMisses}
+                setLetterList={setLetterList}
+                key={letter}
+              />
+            ))}
+          </div>
+          <div>
+            <Container maxWidth="sm">
+              <DrawScreen numMisses={numMisses} />
+            </Container>
           </div>
         </div>
-      </div>
+      </Container>
     );
   } else if (numMisses < 9) {
     return (
       <div className="gamepage-wrapper">
-        <button onClick={() => navigate('/')}>Start New Game</button>
+        <Button variant="contained" onClick={() => navigate('/')}>
+          Start New Game
+        </Button>
         <h1>You Won in {numMisses} moves!</h1>
         <h2>The word was: {answer}</h2>
         <h2>Definition: {definition}</h2>
@@ -95,7 +101,9 @@ export default function GamePage() {
         <h2>The word was: {answer}</h2>
         <h2>Definition: {definition}</h2>
         <DrawScreen numMisses={numMisses} />
-        <button onClick={() => navigate('/')}>Start New Game</button>
+        <Button variant="contained" onClick={() => navigate('/')}>
+          Start New Game
+        </Button>
       </div>
     );
   } else {

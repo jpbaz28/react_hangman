@@ -1,10 +1,15 @@
+import { Typography } from '@mui/material';
 import './MissCounter.css';
 
 export default function MissCounter(props: { numMisses: number }) {
   return (
     <div>
-      <h2 className="miss-title">Number of Misses</h2>
-      <h1 className="miss-counter">{props.numMisses}</h1>
+      <Typography variant="subtitle1" justifyContent={'center'}>
+        Number of Misses
+      </Typography>
+      <Typography variant="h5" justifyContent={'center'}>
+        {props.numMisses}
+      </Typography>
     </div>
   );
 }

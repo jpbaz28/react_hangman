@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
+import { Button } from '@mui/material';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -7,7 +8,9 @@ export default function HomePage() {
     <>
       <div className="homepage-wrapper">
         <h1>Play Hangman!</h1>
-        <button onClick={() => navigate('/game')}>Start New Game</button>
+        <Button variant="contained" onClick={() => navigate('/game')}>
+          Start New Game
+        </Button>
       </div>
     </>
   );

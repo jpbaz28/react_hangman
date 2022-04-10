@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './AlphaButtons.css';
+import Button from '@mui/material/Button';
 
 export default function AlphaButtons(props: {
   letter: string;
@@ -30,8 +31,11 @@ export default function AlphaButtons(props: {
     }
   }
   return (
-    <button className="button" onClick={searchLetter}>
+    <Button
+      variant="contained"
+      onClick={searchLetter}
+      style={{ margin: 0, padding: 15 }}>
       {props.letter}
-    </button>
+    </Button>
   );
 }
