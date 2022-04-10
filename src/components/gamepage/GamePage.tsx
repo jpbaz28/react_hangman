@@ -6,7 +6,7 @@ import AnswerBoard from '../answerboard/AnswerBoard';
 import DrawScreen from '../drawscreen/DrawScreen';
 import './GamePage.css';
 import '@fontsource/roboto/400.css';
-import { Button, Container, Grid, Typography } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 
 export default function GamePage() {
   // prettier-ignore
