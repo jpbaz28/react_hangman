@@ -6,7 +6,13 @@ import '@fontsource/roboto/400.css';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
 
 function App() {
-  let theme = createTheme();
+  let theme = createTheme({
+    palette: {
+      background: {
+        default: 'lightBlue',
+      },
+    },
+  });
   theme = responsiveFontSizes(theme);
   return (
     <ThemeProvider theme={theme}>

@@ -65,7 +65,7 @@ export default function GamePage() {
           <div style={{ textAlign: 'center' }}>
             <AnswerBoard mask={mask} />
           </div>
-          <div>
+          <div style={{ textAlign: 'center' }}>
             {letterList.map((letter) => (
               <AlphaButtons
                 letter={letter}

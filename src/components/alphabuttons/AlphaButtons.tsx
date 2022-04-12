@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './AlphaButtons.css';
 import Button from '@mui/material/Button';
+import { createTheme, ThemeProvider } from '@mui/material';
+import { yellow } from '@mui/material/colors';
 
 export default function AlphaButtons(props: {
   letter: string;
@@ -13,6 +15,18 @@ export default function AlphaButtons(props: {
   setNumMisses: Function;
 }) {
   const [guessLetter] = useState<string>(props.letter);
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: yellow[500],
+      },
+    },
+    typography: {
+      fontFamily: "'Gloria Hallelujah', cursive",
+      fontSize: 20,
+      fontWeightMedium: 900,
+    },
+  });
   function searchLetter() {
     let str = '';
     props.letterList.splice(props.letterList.indexOf(props.letter), 1);
@@ -31,11 +45,19 @@ export default function AlphaButtons(props: {
     }
   }
   return (
-    <Button
-      variant="contained"
-      onClick={searchLetter}
-      style={{ margin: 0, padding: 15 }}>
-      {props.letter}
-    </Button>
+    <ThemeProvider theme={theme}>
+      <Button
+        variant="contained"
+        onClick={searchLetter}
+        style={{
+          margin: 14,
+          padding: 15,
+          border: 4,
+          borderColor: 'black',
+          borderStyle: 'outset',
+        }}>
+        {props.letter}
+      </Button>
+    </ThemeProvider>
   );
 }
