@@ -8,6 +8,12 @@ import './GamePage.css';
 import '@fontsource/roboto/400.css';
 import { Button, Container, Typography } from '@mui/material';
 
+interface WordObject {
+  word: string;
+  definition: string;
+  pronunciation: string;
+}
+
 export default function GamePage() {
   // prettier-ignore
   const [letterList, setLetterList] = useState<string[]>([
@@ -40,7 +46,7 @@ export default function GamePage() {
       const response: AxiosResponse = await axios.get(
         `https://random-words-api.vercel.app/word`
       );
-      const wordObj = await response.data;
+      const wordObj: WordObject[] = await response.data;
       setAnswer(wordObj[0].word);
       setDefinition(wordObj[0].definition);
     } catch (error) {

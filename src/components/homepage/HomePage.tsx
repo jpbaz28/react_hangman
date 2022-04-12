@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import { Button } from '@mui/material';
 
 export default function HomePage() {
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
   return (
     <>
       <div className="homepage-wrapper">
